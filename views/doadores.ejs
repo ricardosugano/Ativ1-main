@@ -1,0 +1,87 @@
+<%- include ('partials/header.ejs') %>
+    <%- include ('partials/navbar.ejs') %>
+
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h1>DOADORES</h1>
+                </div>
+
+                <div class="card-body">
+                    <!-- Formulário de inclusão -->
+                    <form action="/doadores/new" method="POST">
+                        <div class="mb-3">
+                            <label>Nome do doador:</label>
+                            <input type="text" name="nomeD" placeholder="Insira o nome do doador" class="form-control"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>CPF do doador:</label>
+                            <input type="text" name="cpfD" placeholder="Insira o email do doador" class="form-control"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Endereço do doador:</label>
+                            <input type="text" name="enderecoD" placeholder="Insira o endereço do doador"
+                                class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="submit" class="btn btn-success" value="Cadastrar">
+                            <input type="reset" class="btn btn-danger" value="Limpar">
+                        </div>
+                    </form>
+                </div>
+
+
+                <div class="card-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Nome:</th>
+                                <th>CPF:</th>
+                                <th>Endereço:</th>
+                                <th colspan="2" style="text-align: center;">Ações:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% doadores.forEach(doador=> { %>
+                                <tr>
+                                    <td><img src="imgs/avatar.png" width="30px"></td>
+                                    <td>
+                                        <%= doador.nomeD %>
+                                    </td>
+                                    <td>
+                                        <%= doador.cpfD %>
+                                    </td>
+                                    <td>
+                                        <%= doador.enderecoD %>
+                                    </td>
+                                    <td>
+                                        <a href="/doadores/edit/<%= doador.id %>">
+                                            <button class="btn btn-warning">
+                                                Editar
+                                            </button>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <form method="POST" action="/doadores/delete/<%= doador.id %>">
+                                            <input type="hidden" name="id" value="<%= doador.id %>">
+                                            <button type="submit" class="btn btn-danger"
+                                                onclick="return confirm('Deseja mesmo excluir o doador <%= doador.nomeD %>?')">
+                                                Excluir
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <%- include ('partials/footer.ejs') %>

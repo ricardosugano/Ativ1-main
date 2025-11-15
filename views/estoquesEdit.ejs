@@ -1,0 +1,49 @@
+<%- include ('partials/header.ejs') %>
+    <%- include ('partials/navbar.ejs') %>
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h1>Alterar Estoque</h1>
+                </div>
+                <div class="card-body">
+                    <!-- Formulário de edição -->
+                    <form action="/estoques/update/<%= estoque.id %>" method="POST">
+                        <div class="mb-3">
+                            <input type="hidden" name="id" value="<%= estoque.id %>">
+                            <label>Produto:</label>
+                            <input type="text" name="produto" placeholder="Insira o produto" class="form-control"
+                                value="<%= estoque.produto %>" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Categoria do produto:</label>
+                            <input type="text" name="categoria" placeholder="Insira acategoria do produto"
+                                class="form-control" value="<%= estoque.categoria %>" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Quantidade:</label>
+                            <input type="number" name="quantidade" placeholder="Insira a quantidade do produto"
+                                class="form-control" value="<%= estoque.quantidade %>" required>
+
+                            <div class="mb-3">
+                                <label>Preço:</label>
+                                <input type="number" name="preco" placeholder="Insira o preço do produto "
+                                    class="form-control" value="<%= estoque.preco %>" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <input
+                                    onclick="return confirm('Confirma as alterações realizadas para o produto <%= estoque.produto %>?')"
+                                    type="submit" class="btn btn-warning" value="Alterar">
+                                <a href="/estoques">
+                                    <input type="button" class="btn btn-danger" value="Cancelar">
+                                </a>
+
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <%- include ('partials/footer.ejs') %>

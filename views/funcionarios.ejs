@@ -1,0 +1,86 @@
+<%- include ('partials/header.ejs') %>
+    <%- include ('partials/navbar.ejs') %>
+
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h1>FUNCIONÁRIOS</h1>
+                </div>
+
+                <div class="card-body">
+                    <!-- Formulário de inclusão -->
+                    <form action="/funcionarios/new" method="POST">
+                        <div class="mb-3">
+                            <label>Nome do funcionario:</label>
+                            <input type="text" name="nome" placeholder="Insira o nome do funcionario"
+                                class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>CPF do funcionario:</label>
+                            <input type="text" name="cpf" placeholder="Insira o email do funcionario"
+                                class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Endereço do funcionario:</label>
+                            <input type="text" name="endereco" placeholder="Insira o endereço do funcionario"
+                                class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="submit" class="btn btn-success" value="Cadastrar">
+                            <input type="reset" class="btn btn-danger" value="Limpar">
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Nome:</th>
+                                <th>CPF:</th>
+                                <th>Endereço:</th>
+                                <th colspan="2" style="text-align: center;">Ações:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% funcionarios.forEach(funcionario=> { %>
+                                <tr>
+                                    <td><img src="imgs/avatar.png" width="30px"></td>
+                                    <td>
+                                        <%= funcionario.nome %>
+                                    </td>
+                                    <td>
+                                        <%= funcionario.cpf %>
+                                    </td>
+                                    <td>
+                                        <%= funcionario.endereco %>
+                                    </td>
+                                    <td>
+                                        <a href="/funcionarios/edit/<%= funcionario.id %>">
+                                            <button class="btn btn-warning">
+                                                Editar
+                                            </button>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <form method="POST" action="/funcionarios/delete/<%= funcionario.id %>">
+                                            <input type="hidden" name="id" value="<%= funcionario.id %>">
+                                            <button type="submit" class="btn btn-danger"
+                                                onclick="return confirm('Deseja mesmo excluir o funcionario <%= funcionario.nomeD %>?')">
+                                                Excluir
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <%- include ('partials/footer.ejs') %>

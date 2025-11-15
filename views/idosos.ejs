@@ -1,0 +1,84 @@
+<%- include ('partials/header.ejs') %>
+    <%- include ('partials/navbar.ejs') %>
+
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h1>Cadastro de IDOSO</h1>
+                </div>
+
+                <div class="card-body">
+                    <!-- Formulário de inclusão -->
+                    <form action="/idosos/new" method="POST">
+                        <div class="mb-3">
+                            <label>Nome do idoso:</label>
+                            <input type="text" name="nome" placeholder="Insira o nome do idoso" class="form-control"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>CPF do idoso:</label>
+                            <input type="text" name="cpf" placeholder="Insira o email do idoso" class="form-control"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Endereço do idoso:</label>
+                            <input type="text" name="endereco" placeholder="Insira o endereço do idoso"
+                                class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="submit" class="btn btn-success" value="Cadastrar">
+                            <input type="reset" class="btn btn-danger" value="Limpar">
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Nome:</th>
+                                <th>CPF:</th>
+                                <th>Endereço:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% idosos.forEach(idoso=> { %>
+                                <tr>
+                                    <td><img src="imgs/avatar.png" width="30px"></td>
+                                    <td>
+                                        <%= idoso.nome %>
+                                    </td>
+                                    <td>
+                                        <%= idoso.cpf %>
+                                    </td>
+                                    <td>
+                                        <%= idoso.endereco %>
+                                    </td>
+                                    <td>
+                                        <a href="/idosos/edit/<%= idoso.id %>">
+                                            <button class="btn btn-warning">
+                                                Editar
+                                            </button>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <form method="POST" action="/idosos/delete/<%= idoso.id %>">
+                                            <input type="hidden" name="id" value="<%= idoso.id %>">
+                                            <button type="submit" class="btn btn-danger"
+                                                onclick="return confirm('Deseja mesmo excluir o idoso <%= idoso.nome %>?')">
+                                                Excluir
+                                            </button>
+                                        </form>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <%- include ('partials/footer.ejs') %>

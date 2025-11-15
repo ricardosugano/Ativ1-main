@@ -1,0 +1,44 @@
+<%- include ('partials/header.ejs') %>
+    <%- include ('partials/navbar.ejs') %>
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h1>Alterar dos dados do doador</h1>
+                </div>
+                <div class="card-body">
+                    <!-- Formulário de edição -->
+                    <form action="/doadores/update/<%= doador.id %>" method="POST">
+                        <div class="mb-3">
+                            <input type="hidden" name="id" value='<%=doador.id %>'>
+                            <label>Nome do doador:</label>
+                            <input type="text" name="nomeD" placeholder="Insira o nome do doador" class="form-control"
+                                value="<%= doador.nomeD %>" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>CPF do doador:</label>
+                            <input type="text" name="cpfD" placeholder="Insira o cpf do doador" class="form-control"
+                                value="<%= doador.cpfD %>" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Endereço do doador:</label>
+                            <input type="text" name="enderecoD" placeholder="Insira o endereço do doador"
+                                class="form-control" value="<%= doador.enderecoD %>" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <input
+                                onclick="return confirm('Confirma as alterações realizadas para o doador <%= doador.nomeD %>?')"
+                                type="submit" class="btn btn-warning" value="Alterar">
+                            <a href="/doadores">
+                                <input type="button" class="btn btn-danger" value="Cancelar">
+                            </a>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <%- include ('partials/footer.ejs') %>

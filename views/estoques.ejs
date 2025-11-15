@@ -1,0 +1,97 @@
+<%- include ('partials/header.ejs') %>
+    <%- include ('partials/navbar.ejs') %>
+
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h1>ESTOQUE</h1>
+                </div>
+
+                <div class="card-body">
+                    <!-- Formulário de inclusão -->
+                    <form action="/estoques/new" method="POST">
+                        <div class="mb-3">
+                            <label>Produto:</label>
+                            <input type="text" name="produto" placeholder="Insira o nome do produto" class="form-control"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Categoria:</label>
+                            <input type="text" name="categoria" placeholder="Insira o categoria do produto"
+                                class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Quantidade:</label>
+                            <input type="number" name="quantidade" placeholder="Insira a quantidade do produto"
+                                class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Preço:</label>
+                            <input type="number" name="preco" placeholder="Insira o preço do produto"
+                                class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="submit" class="btn btn-success" value="Cadastrar">
+                            <input type="reset" class="btn btn-danger" value="Limpar">
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Produto:</th>
+                                <th>Categoria:</th>
+                                <th>Quantidade:</th>
+                                <th>Preco:</th>
+                                <th colspan="2" style="text-align: center;">Ações:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% estoques.forEach(estoque=> { %>
+                                <tr>
+                                    <td><img src="imgs/order.png" width="30px"></td>
+                                    <td>
+                                        <%= estoque.produto %>
+                                    </td>
+                                    <td>
+                                        <%= estoque.categoria %>
+                                    </td>
+                                    <td>
+                                        <%= estoque.quantidade %>
+                                    </td>
+                                    <td>
+                                        <%= estoque.preco.toLocaleString('pt-br', {style: 'currency' , currency: 'BRL'
+                                            }) %>
+                                    </td>
+                                    <td>
+                                        <a href="/estoques/edit/<%= estoque.id %>">
+                                            <button class="btn btn-warning">
+                                                Editar
+                                            </button>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <form method="POST" action="/estoques/delete/<%= estoque.id %>">
+                                            <input type="hidden" name="id" value="<%= estoque.id %>">
+                                            <button type="submit" class="btn btn-danger"
+                                                onclick="return confirm('Deseja mesmo excluir o estoque <%= estoque.nomeD %>?')">
+                                                Excluir
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <%- include ('partials/footer.ejs') %>

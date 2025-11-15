@@ -1,0 +1,85 @@
+<%- include ('partials/header.ejs') %>
+    <%- include ('partials/navbar.ejs') %>
+
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h1>VISITAS</h1>
+                </div>
+
+                <div class="card-body">
+                    <!-- Formulário de inclusão -->
+                    <form action="/visitas/new" method="POST">
+                        <div class="mb-3">
+                            <label>Nome do visita:</label>
+                            <input type="text" name="nome" placeholder="Insira o nome do visita" class="form-control"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>CPF do visita:</label>
+                            <input type="text" name="cpf" placeholder="Insira o email do visita" class="form-control"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Endereço do visita:</label>
+                            <input type="text" name="endereco" placeholder="Insira o endereço do visita"
+                                class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="submit" class="btn btn-success" value="Cadastrar">
+                            <input type="reset" class="btn btn-danger" value="Limpar">
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Nome:</th>
+                                <th>CPF:</th>
+                                <th>Endereço:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% visitas.forEach(visita=> { %>
+                                <tr>
+                                    <td><img src="imgs/avatar.png" width="30px"></td>
+                                    <td>
+                                        <%= visita.nome %>
+                                    </td>
+                                    <td>
+                                        <%= visita.cpf %>
+                                    </td>
+                                    <td>
+                                        <%= visita.endereco %>
+                                    </td>
+                                    <td>
+                                        <a href="/visitas/edit/<%= visita.id %>">
+                                            <button class="btn btn-warning">
+                                                Editar
+                                            </button>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <form method="POST" action="/visitas/delete/<%= visita.id %>">
+                                            <input type="hidden" name="id" value="<%= visita.id %>">
+                                            <button type="submit" class="btn btn-danger"
+                                                onclick="return confirm('Deseja mesmo excluir a visita <%= visita.nome %>?')">
+                                                Excluir
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <%- include ('partials/footer.ejs') %>
